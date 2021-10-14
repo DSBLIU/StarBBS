@@ -1,0 +1,27 @@
+package com.star.controller.jcl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONArray;
+import com.star.dao.jcl.user;
+
+@Controller
+public class testUser {
+	
+	@Resource
+	user u;
+	
+	@RequestMapping(value = "/json", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Object list() {
+
+		return JSONArray.toJSONString(u.list());
+	}
+	
+
+}

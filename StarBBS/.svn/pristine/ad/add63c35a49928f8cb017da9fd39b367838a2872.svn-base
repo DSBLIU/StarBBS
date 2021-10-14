@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.dao.lj.UserArticleMyBatis">
+	<select id="list" resultType="com.star.pojo.article">
+		SELECT * FROM `article` WHERE `title` LIKE #{fuzzy} AND `author`='star'
+		<if test="order == 'DA'">
+			ORDER BY `createDate` DESC
+		</if>
+	</select>
+	
+	<select id="Article_Like" resultType="int">
+		SELECT COUNT(*) FROM `like` WHERE a_id=#{id}
+	</select>
+	
+	<select id="Article_Like_User" resultType="com.star.pojo.user">
+		SELECT u.nickname,u.user_img FROM `like` l INNER JOIN `user` u ON l.u_id=u.id WHERE a_id=#{id}
+	</select>
+	
+	<select id="detail" resultType="com.star.pojo.article">
+		SELECT * FROM `article` WHERE id=#{id}
+	</select>
+	
+	<delete id="del">
+		DELETE FROM `article` WHERE id=#{id}
+	</delete>
+</mapper>

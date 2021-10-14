@@ -1,0 +1,7 @@
+package com.star.dao.jcl;
+
+import java.util.List;
+
+public interface user {
+	public List<user> list();
+}

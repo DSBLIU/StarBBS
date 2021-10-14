@@ -1,0 +1,75 @@
+package com.star.controller.jcl;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.star.dao.jcl.articleMapper;
+import com.star.pojo.*;
+
+import org.aspectj.weaver.ast.Var;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/star")
+public class Article {
+	
+	@Resource
+	articleMapper atticle;
+	
+	@RequestMapping("/article")
+	public String article(article article ,String num ,String ding, String shi,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+	
+		Integer number = new Integer(num);
+		Date date = new Date();
+		article.setCreateDate(date);
+		
+
+		if(number > 0&& ding != null ){
+			if("分钟".equals(shi)){
+				System.out.println("分钟");
+				number = number*60000;
+				System.out.println(number);
+			}
+			if("小时".equals(shi)){
+				System.out.println("小时");
+				number = number*3600000;
+				System.out.println(number);
+			}
+			
+			try {
+				
+				response.sendRedirect("/StarBBS/star/Personal.jsp");
+				sleep(number);
+				
+				System.out.println("睡眠结束");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		int a = atticle.article(article);
+			
+		return "Personal";
+		
+	}
+	public static void sleep(Integer number) throws InterruptedException{
+		try {
+			Thread thread = Thread.currentThread();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread.sleep(number);
+		
+		
+	}
+
+}
